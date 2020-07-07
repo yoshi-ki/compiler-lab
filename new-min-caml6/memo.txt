@@ -1,0 +1,48 @@
+(* --- add for partial app --- *)
+(*
+open Id
+
+
+let rec convert exp =
+  (match exp with
+  | LetRec({ name = (x, t); args = yts; body = e1 }, e2) ->
+      match yts with
+      | first :: [] ->
+        LetRec({ name = (x, t); args = yts; body = convert e1 }, convert e2)
+      | first :: rest ->
+        let funname = Id.genid "newvar" in
+        match t with
+        | ((t1 :: trest),tlast) ->
+          (let gtype = (Fun(trest,tlast)) in
+          let ftype = (Fun(t1,gtype)) in
+          LetRec({name = (x,ftype); args = [first];
+                body = convert (LetRec({name = (funname, gtype ); args = rest; body = e1},funname))}
+               , convert e2))
+  | App (Var(e), es) -> App (Var(e),(convert es ))
+  | App(e1,e2) -> App((convert e1 ),(convert_list e2 ))
+  | Not(e) -> Not(convert e )
+  | Neg(e) -> Neg(convert e )
+  | Add(e1, e2) -> Add((convert e1 ),(convert e2 ))
+  | Sub(e1, e2) -> Sub((convert e1 ),(convert e2 ))
+  | FNeg(e) -> FNeg(convert e)
+  | FAdd(e1, e2) -> FAdd((convert e1),(convert e2 ))
+  | FSub(e1, e2) -> FSub((convert e1),(convert e2 ))
+  | FMul(e1, e2) -> FMul((convert e1),(convert e2 ))
+  | FDiv(e1, e2) -> FDiv((convert e1),(convert e2 ))
+  | Eq(e1, e2) -> Eq((convert e1),(convert e2 ))
+  | LE(e1, e2) -> LE((convert e1),(convert e2 ))
+  | If(e1, e2, e3) -> If((convert e1),(convert e2 ),(convert e3 ))
+  | Let((x, t), e1, e2) -> Let((x,t),(convert e1 ),(convert e2 ))
+  | LetTuple(xts, e1, e2) -> LetTuple(xts, (convert e1 ), (convert e2))
+  | Array(e1, e2) -> Array((convert e1),(convert e2 ))
+  | Get(e1, e2) -> Get((convert e1 ),(convert e2))
+  | Put(e1, e2, e3) -> Put((convert e1 ),(convert e2 ),(convert e3 ))
+  | _ -> exp
+  )
+and convert_list expl =
+  match expl with
+  | [] -> []
+  | exp :: rest -> (convert exp ) :: (convert_list rest )
+*)
+
+(* end --- add for partial app --- *)
